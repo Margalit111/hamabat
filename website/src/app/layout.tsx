@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 // Runs before first paint: marks the page as JS-enabled (reveal animations
 // only hide content when this ran) and keeps --vh stable (never trusts a
 // height that grows with the content).
-const bootScript = `document.documentElement.classList.add('js');(function(){var r=document.documentElement;function s(){var sh=Math.max(screen.height||0,screen.availHeight||0)||900,h=Math.max(440,Math.min(window.innerHeight||sh,sh));r.style.setProperty('--vh',h+'px')}s();addEventListener('resize',function(){requestAnimationFrame(s)})})();`;
+const bootScript = `document.documentElement.classList.add('js');try{if(sessionStorage.getItem('mabat:hero-played')==='1')document.documentElement.classList.add('logo-ready','hero-seen')}catch(e){}(function(){var r=document.documentElement;function s(){var sh=Math.max(screen.height||0,screen.availHeight||0)||900,h=Math.max(440,Math.min(window.innerHeight||sh,sh));r.style.setProperty('--vh',h+'px')}s();addEventListener('resize',function(){requestAnimationFrame(s)})})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const courseGroups = Object.fromEntries(getCoursesWithPage().map((c) => [c.id, c.group]));

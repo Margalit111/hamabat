@@ -521,3 +521,6 @@ main{display:block}
 .head h1{font-size:clamp(30px,min(4.6vw,calc(var(--vh)*0.06)),54px)}
 .band .head h1{font-size:clamp(28px,min(3.7vw,calc(var(--vh)*0.052)),46px)}
 .c-title{margin:4px 0 0}
+
+/* repeat visit: the intro already played, show the hero in its final state */
+html.hero-seen .mask>span,html.hero-seen .hero .fade{animation:none;transform:none;opacity:1}

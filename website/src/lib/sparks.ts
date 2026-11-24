@@ -41,7 +41,11 @@ function colorAt(t: number) {
   return STOPS[STOPS.length - 1][1];
 }
 
-export function initSparks(cv: HTMLCanvasElement, hero: HTMLElement): () => void {
+export function initSparks(
+  cv: HTMLCanvasElement,
+  hero: HTMLElement,
+  onDone?: () => void,
+): () => void {
   const root = document.documentElement;
   const lgEl = hero.querySelector<SVGSVGElement>("svg.hlogo");
   if (!lgEl) return () => {};
@@ -170,6 +174,7 @@ export function initSparks(cv: HTMLCanvasElement, hero: HTMLElement): () => void
     cancelAnimationFrame(raf);
     root.classList.add("logo-ready");
     cv.style.display = "none";
+    onDone?.();
   }
 
   function tick() {
