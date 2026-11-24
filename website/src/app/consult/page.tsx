@@ -46,11 +46,11 @@ export default function ConsultPage() {
                 אנחנו כאן בשבילך. ניתן לפנות אלינו לייעוץ מקצועי ולקבל מענה מצוות המומחיות שלנו בתחומי בריאות האם.
               </p>
             </div>
+            <h2 className="route-label">מסלול א׳</h2>
             <div className="route rv">
               <div className="route-top">
                 <div>
-                  <span className="step">מסלול א</span>
-                  <h2 style={{ fontSize: "clamp(24px,calc(var(--vh)*0.036),32px)", marginTop: 2 }}>ייעוץ דיגיטלי ללא עלות</h2>
+                  <h3>ייעוץ דיגיטלי ללא עלות</h3>
                   <p>שלחי את שאלתך במייל וקבלי מענה מהיר ומקצועי מצוות המומחיות שלנו.</p>
                 </div>
                 <div className="route-acts">
@@ -65,7 +65,7 @@ export default function ConsultPage() {
                   <article className="exp" key={x.name}>
                     <div className="mono">{[...x.name.trim()][0]}</div>
                     <div>
-                      <h3 style={{ fontFamily: "Rubik,sans-serif", fontWeight: 500, fontSize: 21, margin: 0 }}>{x.name}</h3>
+                      <h4>{x.name}</h4>
                       <p>{x.role}</p>
                     </div>
                   </article>
@@ -77,13 +77,11 @@ export default function ConsultPage() {
 
         <div className="page" id="consult-b">
           <div className="wrap">
+            <h2 className="route-label">מסלול ב׳</h2>
             <div className="route rv">
               <div className="route-top">
                 <div>
-                  <span className="step">מסלול ב</span>
-                  <h2 style={{ fontSize: "clamp(24px,calc(var(--vh)*0.036),32px)", marginTop: 2 }}>
-                    ייעוץ פרונטלי ללא עלות לחברות בקורסים
-                  </h2>
+                  <h3>ייעוץ פרונטלי ללא עלות לחברות בקורסים</h3>
                   <p>
                     מפגשים מעצימים, אישיים ומפנקים פנים אל פנים עם צוות המומחיות. הזדמנות לקבל מענה מקצועי, לשאול,
                     להתייעץ וליהנות ממפגש אישי באווירה נעימה ומכילה.

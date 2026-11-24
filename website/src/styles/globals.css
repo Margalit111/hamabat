@@ -369,13 +369,12 @@ footer a.inst{font-size:15px;gap:14px}
 @media(max-width:1000px){#consult-a .head p{display:none}}
 @media(max-width:700px){#consult-a{padding-top:58px}.route-top p{font-size:17px}.route-acts .ghost{display:none}.route-top{gap:12px}#consult-a{padding-bottom:6px}.band{--wv:44px}}
 /* ===== round 7 ===== */
-:root{--hh:81px}
-.top .wrap{min-height:80px}
-.brand b{font-size:32px}
-.brand svg{width:38px;height:38px}
-nav a{font-size:21px;padding:9px 18px;font-weight:500;color:var(--ink)}
-.btn.sm{font-size:18px}
-.inst-link svg{height:50px}
+:root{--hh:77px}
+.top .wrap{min-height:76px}
+.brand b{font-size:26px}
+.brand svg{width:34px;height:34px}
+nav a{font-size:18px;padding:8px 15px;font-weight:500;color:var(--ink)}
+.inst-link svg{height:44px}
 .inst-link{display:none}
 .brand span{display:none}
 .menu-btn{display:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--tint2);color:var(--purple-d);cursor:pointer;place-items:center}
@@ -479,6 +478,8 @@ nav a.active{background:var(--tint2);color:var(--purple-d)}
 @media(max-width:560px){.opts{grid-template-columns:1fr}}
 a.card{text-decoration:none;color:inherit}
 .cards.two{grid-template-columns:repeat(2,1fr);max-width:900px;margin-inline:auto}
+/* exactly two cards: spread a bit wider towards the page edges (3+ keep the default width) */
+.cards.two.wide{max-width:1080px}
 @media(max-width:700px){.cards.two{grid-template-columns:1fr}}
 .crumb{margin-bottom:14px}
 .view .crumb{margin-bottom:10px}
@@ -524,3 +525,28 @@ main{display:block}
 
 /* repeat visit: the intro already played, show the hero in its final state */
 html.hero-seen .mask>span,html.hero-seen .hero .fade{animation:none;transform:none;opacity:1}
+
+/* consult: step A fills the whole screen; step B only shows once you scroll, a cue invites the scroll */
+#v-consult #consult-a{min-height:calc(var(--vh) - var(--hh) - 110px);align-items:flex-start;padding-top:calc(var(--wv) + 10px);padding-bottom:6px}
+#consult-a .head{margin-bottom:8px}
+#consult-a .eyebrow{margin-bottom:10px}
+#consult-a .head p{font-size:clamp(17px,calc(var(--vh)*0.022),20px);margin-top:4px}
+#consult-a .route{padding:clamp(14px,calc(var(--vh)*0.02),22px) clamp(18px,2.6vw,30px);gap:10px}
+#consult-a .exp{min-height:clamp(64px,calc(var(--vh)*0.085),80px);padding:8px 16px}
+.route-label{display:flex;align-items:center;gap:14px;margin:0 0 10px;font-family:'Rubik',sans-serif;font-weight:600;font-size:clamp(24px,3.8vh,34px);color:var(--purple-d);line-height:1.1}
+#consult-a .route-label{margin-top:14px}
+.route-label::before{content:"";width:46px;height:3px;border-radius:3px;background:var(--teal-d)}
+/* consult step B: owns the last screen. Together with the footer it fills the viewport exactly,
+   so at the very end of the page nothing of step A is visible; the card is a little roomier */
+#v-consult #consult-b{min-height:calc(var(--vh) - var(--hh) - var(--fh));padding-top:40px;padding-bottom:clamp(16px,3vh,40px);scroll-snap-align:start}
+#consult-b>.wrap{display:flex;flex-direction:column;align-self:stretch}
+#consult-b .route{margin-bottom:auto}
+#consult-b .route{padding:clamp(26px,4.2vh,52px) clamp(24px,4vw,56px);gap:clamp(22px,4vh,44px);border-radius:36px}
+#consult-b .route-top h3{font-size:clamp(28px,4.6vh,42px)}
+#consult-b .route-top p{font-size:clamp(19px,2.6vh,22px);max-width:52em;margin-top:10px}
+#consult-b .ticket{padding:clamp(20px,3.4vh,34px) clamp(22px,3vw,38px);border-radius:26px}
+#consult-b .t-head{padding-bottom:clamp(12px,2vh,20px)}
+#consult-b .t-cells{padding-top:clamp(16px,3vh,28px)}
+#consult-b .t-cells b{font-size:clamp(22px,3.2vh,28px)}
+#consult-b .t-cells small{font-size:17px}
+#consult-b .live{font-size:19px}

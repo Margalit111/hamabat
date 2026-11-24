@@ -34,7 +34,7 @@ export default function CourseGroupPage({
               </h1>
               <p>{lead}</p>
             </div>
-            <div className="cards two">
+            <div className={`cards two${courses.length === 2 ? " wide" : ""}`}>
               {courses.map((c, i) => (
                 <CourseCard key={c.id} course={c} index={i} />
               ))}
