@@ -2,10 +2,18 @@
 //   poster/ad images  -> <name>-600.webp, <name>-1000.webp
 //   brand logos       -> <name>-300.webp, <name>-600.webp
 // The original file stays next to them (used for Open Graph previews and the "enlarge" link).
-// Run: npm run images        (re-run whenever you add or replace an image)
+// Runs automatically before every build (see "prebuild"), so adding or replacing an image
+// only needs the original file + its path in content/site.json. Manual run: npm run images
 import fs from "node:fs";
 import path from "node:path";
-import sharp from "sharp";
+
+let sharp;
+try {
+  sharp = (await import("sharp")).default;
+} catch {
+  console.warn("sharp is not installed: skipping image optimization (existing .webp files are used as they are).");
+  process.exit(0);
+}
 
 const root = path.resolve(import.meta.dirname, "..");
 const data = JSON.parse(fs.readFileSync(path.join(root, "content/site.json"), "utf8"));
@@ -29,7 +37,7 @@ for (const { src, widths } of jobs) {
     await sharp(file).resize({ width }).webp({ quality: 80, effort: 5 }).toFile(out);
     const size = fs.statSync(out).size;
     after += size;
-    console.log(`${path.relative(root, out)}  ${(size / 1024).toFixed(0)}KB`);
+    if (!process.argv.includes("--quiet")) console.log(`${path.relative(root, out)}  ${(size / 1024).toFixed(0)}KB`);
   }
 }
-console.log(`original ${(before / 1024).toFixed(0)}KB -> webp variants ${(after / 1024).toFixed(0)}KB total`);
+console.log(`תמונות: ${jobs.length} קבצים עובדו (${(before / 1024).toFixed(0)}KB -> ${(after / 1024).toFixed(0)}KB ב-WebP)`);

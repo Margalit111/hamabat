@@ -21,7 +21,7 @@ npm install
 npm run dev          # פיתוח: http://localhost:3000
 npm run validate     # בדיקת תקינות של content/site.json (רצה גם אוטומטית לפני כל build)
 npm run build        # בנייה: האתר המוכן נוצר בתיקייה website/out
-npm run images       # יצירת גרסאות WebP לתמונות (ראו "תמונות וגופנים")
+npm run images       # יצירת גרסאות WebP לתמונות (רצה גם אוטומטית לפני כל build)
 npm run og           # יצירה מחדש של תמונת השיתוף public/og-home.jpg
 ```
 
@@ -31,7 +31,7 @@ npm run og           # יצירה מחדש של תמונת השיתוף public/o
 (פותחים את הקובץ ← סמל העיפרון ← **Commit changes**), והאתר מתעדכן אוטומטית תוך כמה דקות.
 תמונות ופוסטרים נמצאים ב־`website/public/assets/uploads/`.
 
-**בדיקה אוטומטית:** לפני כל בנייה רצה בדיקת תקינות (`website/scripts/validate-content.mjs`). אם יש טעות (JSON שבור, תאריך לא חוקי, מזהה כפול, תמונה חסרה או שלא הורצה עבורה `npm run images`), הבנייה נעצרת עם הסבר בעברית, והאתר החי נשאר כמו שהיה. בלשונית Deployments ב־Cloudflare רואים את ההסבר ביומן הבנייה.
+**בדיקה אוטומטית:** לפני כל בנייה רצה בדיקת תקינות (`website/scripts/validate-content.mjs`). אם יש טעות (JSON שבור, תאריך לא חוקי, מזהה כפול, תמונה חסרה), הבנייה נעצרת עם הסבר בעברית, והאתר החי נשאר כמו שהיה. בלשונית Deployments ב־Cloudflare רואים את ההסבר ביומן הבנייה.
 
 ### קורסים (`courses`)
 
@@ -88,8 +88,7 @@ npm run og           # יצירה מחדש של תמונת השיתוף public/o
 
 ## תמונות וגופנים
 
-* **תמונות:** מניחים את התמונה המקורית (JPG/PNG) ב־`website/public/assets/uploads/`, מפנים אליה מ־`site.json`, ואז מריצים `npm run images` (בתוך `website`).
-  הסקריפט יוצר לצידה גרסאות WebP קלות (`-600.webp`, `-1000.webp`), והאתר מגיש אותן אוטומטית. המקור נשאר לתצוגות שיתוף ולכפתור "הגדלה".
+* **תמונות:** מעלים את התמונה המקורית (JPG/PNG) ל־`website/public/assets/uploads/` ומפנים אליה מ־`site.json`. זה הכול: לפני כל בנייה רץ אוטומטית `scripts/optimize-images.mjs`, שיוצר לצידה גרסאות WebP קלות (`-600.webp`, `-1000.webp`), והאתר מגיש אותן. המקור נשאר לתצוגות שיתוף ולכפתור "הגדלה". אפשר גם להריץ ידנית: `npm run images` (בתוך `website`).
 * **גופנים:** Rubik ו־Assistant מאוחסנים עצמית ב־`website/public/fonts/` (עברית ולטינית, רישיון OFL), עם טעינה מוקדמת, בלי בקשות לשרתי Google.
 * **לוגו המכון:** `website/public/logo-mabat.svg` (נשמר במטמון, לא מוטמע בכל עמוד).
 * **CSS:** קובץ אחד, `website/src/styles/globals.css`, מנוקה משאריות של גרסאות קודמות של ההדמיה.
