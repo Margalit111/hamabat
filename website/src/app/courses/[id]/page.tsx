@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import CourseView from "@/components/CourseView";
 import JsonLd from "@/components/JsonLd";
 import { getCourse, getCoursesWithPage } from "@/lib/content";
+import { isIsoDate } from "@/lib/dates";
 import { SITE_FULL_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ id: string }> };
@@ -53,6 +54,15 @@ export default async function CoursePage({ params }: Props) {
           url,
           inLanguage: "he",
           provider: { "@type": "Organization", name: SITE_FULL_NAME, url: SITE_URL },
+          ...(isIsoDate(course.startDate)
+            ? {
+                hasCourseInstance: {
+                  "@type": "CourseInstance",
+                  courseMode: "onsite",
+                  startDate: course.startDate,
+                },
+              }
+            : {}),
         }}
       />
       <JsonLd

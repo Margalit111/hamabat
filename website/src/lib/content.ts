@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
+import { isIsoDate, todayInIsrael } from "./dates";
 import type { Course, CourseGroup, SiteContent } from "./types";
 
 /**
@@ -23,11 +24,24 @@ function loadContent(): SiteContent {
 export const getContact = () => loadContent().contact;
 export const getExperts = () => loadContent().experts ?? [];
 
-export const isVisible = (c: Course) => c.status !== "hidden";
+export const isVisible = (c: Course) =>
+  c.status !== "hidden" && !(c.hideAfter && todayInIsrael() > c.hideAfter);
+
+/**
+ * Courses with a `startDate` are ordered by it (soonest first). Courses without a date
+ * keep their place in the list (e.g. a link to another site that always stays first).
+ */
+function orderByStartDate(list: Course[]): Course[] {
+  const slots = list.flatMap((c, i) => (isIsoDate(c.startDate) ? [i] : []));
+  const dated = slots.map((i) => list[i]).sort((a, b) => a.startDate!.localeCompare(b.startDate!));
+  const out = [...list];
+  slots.forEach((slot, k) => (out[slot] = dated[k]));
+  return out;
+}
 
 export function getCourses(group?: CourseGroup): Course[] {
-  return loadContent().courses.filter(
-    (c) => isVisible(c) && (!group || c.group === group),
+  return orderByStartDate(
+    loadContent().courses.filter((c) => isVisible(c) && (!group || c.group === group)),
   );
 }
 
@@ -40,16 +54,12 @@ export function getCourse(id: string): Course | undefined {
   return getCoursesWithPage().find((c) => c.id === id);
 }
 
-/** Today's date in Israel (YYYY-MM-DD). The build runs in UTC, so never use the server's local day. */
-function todayInIsrael() {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jerusalem" }).format(new Date());
-}
-
 /** The upcoming meeting, or null when it is switched off / already past. */
 export function getMeeting() {
   const m = loadContent().meeting;
   if (!m?.show) return null;
-  // hidden from the day AFTER `hideAfter` (ISO dates compare correctly as strings)
-  if (m.hideAfter && todayInIsrael() > m.hideAfter) return null;
+  // hidden from the day AFTER `hideAfter` (or after the meeting date itself); ISO dates compare as strings
+  const lastDay = m.hideAfter || (isIsoDate(m.date) ? m.date : undefined);
+  if (lastDay && todayInIsrael() > lastDay) return null;
   return m;
 }

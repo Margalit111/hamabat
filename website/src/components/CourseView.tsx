@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getContact } from "@/lib/content";
+import { formatDateHe } from "@/lib/dates";
 import { telHref, waHref } from "@/lib/format";
 import { LOGO_WIDTHS, POSTER_WIDTHS, webpSet } from "@/lib/images";
 import type { Course } from "@/lib/types";
@@ -157,7 +158,7 @@ export default function CourseView({ course: c }: { course: Course }) {
             </div>
             <div className="route rv" style={vars({ "--d": ".1s" })}>
               <div className="kv">
-                <div><small>מועד פתיחה</small><b>{d.start || SOON}</b></div>
+                <div><small>מועד פתיחה</small><b>{d.start || (c.startDate ? formatDateHe(c.startDate) : SOON)}</b></div>
                 <div><small>מקום</small><b>{d.place || SOON}</b></div>
                 <div><small>משך הקורס</small><b>{d.duration || SOON}</b></div>
                 <div><small>עלות</small><b>{d.price || SOON}</b></div>

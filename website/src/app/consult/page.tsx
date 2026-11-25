@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CopyButton from "@/components/CopyButton";
 import { getContact, getExperts, getMeeting } from "@/lib/content";
+import { formatDateHe } from "@/lib/dates";
 import { mailHref } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -100,7 +101,7 @@ export default function ConsultPage() {
                   <div className="t-cells">
                     <div>
                       <small>תאריך</small>
-                      <b>{meeting.date}</b>
+                      <b>{formatDateHe(meeting.date)}</b>
                     </div>
                     <div>
                       <small>שעה</small>

@@ -11,11 +11,12 @@ export interface Contact {
 
 export interface Meeting {
   show: boolean;
+  /** ISO date (YYYY-MM-DD), shown in Hebrew. Free text is still accepted and shown as is. */
   date?: string;
   time?: string;
   place?: string;
   topic?: string;
-  /** ISO date (YYYY-MM-DD). The meeting is hidden after this day. */
+  /** ISO date (YYYY-MM-DD). Hidden from the day after. Defaults to `date` when that is an ISO date. */
   hideAfter?: string;
   note?: string;
 }
@@ -32,6 +33,7 @@ export interface CourseFeature {
 }
 
 export interface CourseDetails {
+  /** Free text for the "opening date" box. When empty, `startDate` is shown instead. */
   start?: string;
   place?: string;
   duration?: string;
@@ -72,6 +74,10 @@ export interface Course {
   art?: CourseArt;
   /** Course that lives on another website: the card links out, no local page. */
   externalUrl?: string;
+  /** ISO date (YYYY-MM-DD) of the first lesson: shown on the course page, used for ordering and SEO. */
+  startDate?: string;
+  /** ISO date (YYYY-MM-DD). The course disappears from the site the day after. */
+  hideAfter?: string;
   page?: CoursePage;
 }
 
