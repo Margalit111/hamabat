@@ -12,10 +12,16 @@ export default function Footer() {
           </Link>
           <span>{SITE_TAGLINE}</span>
         </div>
-        <a className="inst" href={INSTITUTE_URL} target="_blank" rel="noopener">
-          <span>לאתר מכון המבט</span>
-          <InstituteLogo className="flogo" label="לוגו מכון המבט" />
-        </a>
+        <div className="f-side">
+          <div className="flinks" role="navigation" aria-label="מידע משפטי">
+            <Link href="/accessibility/">הצהרת נגישות</Link>
+            <Link href="/privacy/">מדיניות פרטיות</Link>
+          </div>
+          <a className="inst" href={INSTITUTE_URL} target="_blank" rel="noopener">
+            <span>לאתר מכון המבט</span>
+            <InstituteLogo className="flogo" label="לוגו מכון המבט" />
+          </a>
+        </div>
       </div>
     </footer>
   );

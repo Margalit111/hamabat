@@ -550,3 +550,32 @@ html.hero-seen .mask>span,html.hero-seen .hero .fade{animation:none;transform:no
 #consult-b .t-cells b{font-size:clamp(22px,3.2vh,28px)}
 #consult-b .t-cells small{font-size:17px}
 #consult-b .live{font-size:19px}
+
+/* ===== legal pages: accessibility statement + privacy policy ===== */
+#v-accessibility .page,#v-privacy .page{min-height:0}
+.legal-page{align-items:flex-start;padding-block:clamp(28px,5vh,56px) 64px}
+.legal-page .head{margin-bottom:22px}
+.legal{background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:clamp(24px,4vw,48px);max-width:56em}
+.legal h3{font-size:clamp(22px,2.8vh,27px);margin:32px 0 8px;color:var(--purple-d)}
+.legal .upd+h3{margin-top:6px}
+.legal p,.legal li{font-size:19px;line-height:1.8;color:var(--ink)}
+.legal p{margin:0 0 10px}
+.legal ul{margin:6px 0 12px;padding-inline-start:1.3em}
+.legal li{margin-bottom:4px}
+.legal a{color:var(--purple-d);font-weight:600}
+.legal .upd{color:var(--muted);font-size:16px;margin:0 0 6px}
+
+/* ===== footer: slim, one tidy row (brand on the start side; the links grouped together on the end side) ===== */
+footer{padding-block:6px;scroll-snap-align:end}
+footer .wrap{gap:8px 28px;align-items:center;justify-content:space-between}
+.f-brand{gap:4px 14px;min-width:0}
+.f-side{display:flex;align-items:center;flex-wrap:wrap;gap:6px 22px}
+.flinks{display:flex;align-items:center;gap:0;font-size:15px}
+.flinks a{color:var(--muted);text-decoration:none;padding:4px 0}
+.flinks a+a{margin-inline-start:16px;padding-inline-start:16px;border-inline-start:1px solid var(--line)}
+.flinks a:hover{color:var(--purple-d);text-decoration:underline}
+footer a.inst{display:inline-flex;align-items:center;gap:10px;padding:3px 14px 3px 10px;border-radius:99px;background:rgba(255,255,255,.75);border:1px solid var(--line);font-size:15px;font-weight:600;color:var(--purple-d);transition:background .3s}
+footer a.inst:hover{background:#fff}
+footer .flogo{width:58px;height:auto}
+@media(min-width:1000px){footer .wrap{flex-wrap:nowrap}.f-brand{flex-wrap:nowrap;white-space:nowrap}}
+@media(max-width:700px){footer{padding-block:10px 12px}footer .wrap{gap:4px;padding-left:max(92px,env(safe-area-inset-left,0px))}.f-brand span{display:none}.f-side{gap:6px 18px}}
