@@ -47,6 +47,15 @@ npm run build        # בנייה: האתר המוכן נוצר בתיקייה w
 * **כותרות מטמון ואבטחה:** `website/public/_headers` (נקרא על ידי Cloudflare Pages ו־Netlify).
 * **לוגו המכון:** קובץ `public/logo-mabat.svg` (נשמר במטמון, לא מוטמע בכל עמוד).
 
+## בנייה לילית
+
+האתר סטטי, ולכן דברים שתלויים בתאריך (כמו מפגש הייעוץ שנעלם אחרי `meeting.hideAfter`) משתנים רק כשהאתר נבנה מחדש.
+ה־GitHub Action `.github/workflows/nightly-rebuild.yml` רץ כל לילה אחרי חצות (שעון ישראל), בודק אם משהו פג, ואם כן דוחף commit ריק, ו־Cloudflare בונה ומפרסם מחדש.
+
+* הרצה ידנית: GitHub ← Actions ← "Nightly rebuild" ← Run workflow (אפשר לסמן `force` כדי לבנות בכל מקרה).
+* הבדיקה עצמה: `website/scripts/needs-rebuild.mjs`.
+* GitHub מכבה פעולות מתוזמנות בריפו שלא היה בו שום פעילות 60 יום; במקרה כזה מפעילים אותה מחדש בלשונית Actions.
+
 ## מה כבר מכוסה ב־SEO
 
 * HTML מלא לכל עמוד, כתובת אמיתית לכל קורס, `lang="he"` ו־`dir="rtl"`

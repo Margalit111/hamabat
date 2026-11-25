@@ -40,12 +40,16 @@ export function getCourse(id: string): Course | undefined {
   return getCoursesWithPage().find((c) => c.id === id);
 }
 
+/** Today's date in Israel (YYYY-MM-DD). The build runs in UTC, so never use the server's local day. */
+function todayInIsrael() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jerusalem" }).format(new Date());
+}
+
 /** The upcoming meeting, or null when it is switched off / already past. */
 export function getMeeting() {
   const m = loadContent().meeting;
   if (!m?.show) return null;
-  if (m.hideAfter && new Date(`${m.hideAfter}T23:59:59`) < new Date()) {
-    return null;
-  }
+  // hidden from the day AFTER `hideAfter` (ISO dates compare correctly as strings)
+  if (m.hideAfter && todayInIsrael() > m.hideAfter) return null;
   return m;
 }

@@ -1,0 +1,37 @@
+name: Nightly rebuild
+
+# Every night (just after midnight, Israel time) check whether anything on the site
+# expired (e.g. the upcoming consultation meeting). If so, push an empty commit:
+# Cloudflare sees the push, rebuilds the site and publishes it without the expired item.
+on:
+  schedule:
+    - cron: "5 22 * * *" # 22:05 UTC = 00:05 (winter) / 01:05 (summer) in Israel
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild now even if nothing expired"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Did anything expire?
+        id: check
+        run: node website/scripts/needs-rebuild.mjs
+        env:
+          FORCE: ${{ inputs.force }}
+
+      - name: Trigger a new Cloudflare build
+        if: steps.check.outputs.rebuild == 'true'
+        run: |
+          git config user.name "nightly-rebuild[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git commit --allow-empty -m "chore: nightly rebuild (expired content)"
+          git push
