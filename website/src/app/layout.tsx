@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import "@fontsource-variable/rubik/wght.css";
+import "@fontsource-variable/assistant/wght.css";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { LogoSprite } from "@/components/icons";
 import RevealObserver from "@/components/RevealObserver";
 import SiteEffects from "@/components/SiteEffects";
 import Toaster from "@/components/Toaster";
@@ -43,19 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className="v-spark" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap"
-        />
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
         <a className="skip" href="#content">
           דילוג לתוכן
         </a>
-        <LogoSprite />
         <Header courseGroups={courseGroups} />
         <div id="content">{children}</div>
         <Footer />

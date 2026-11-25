@@ -39,6 +39,13 @@ npm run build        # בנייה: האתר המוכן נוצר בתיקייה w
 * משתנה סביבה: `NEXT_PUBLIC_SITE_URL=https://הדומיין-האמיתי` (קובע כתובות canonical, sitemap ו־Open Graph)
 * בנייה לילית: Deploy Hook של הפלטפורמה + cron (או GitHub Actions עם `schedule`), כדי שקורסים/מפגשים שפג תוקפם יוסתרו.
 
+## תמונות וגופנים (ביצועים)
+
+* **תמונות:** מניחים את התמונה המקורית (JPG/PNG) ב־`website/public/assets/uploads/`, מפנים אליה מ־`site.json`, ואז מריצים `npm run images` (בתוך `website`).
+  הסקריפט יוצר לצידה גרסאות WebP קלות (`-600.webp`, `-1000.webp`), והאתר מגיש אותן אוטומטית. המקור נשאר לתצוגות שיתוף ולכפתור "הגדלה".
+* **גופנים:** Rubik ו־Assistant מאוחסנים עצמית (חבילות `@fontsource-variable`), בלי בקשות לשרתי Google.
+* **לוגו המכון:** קובץ `public/logo-mabat.svg` (נשמר במטמון, לא מוטמע בכל עמוד).
+
 ## מה כבר מכוסה ב־SEO
 
 * HTML מלא לכל עמוד, כתובת אמיתית לכל קורס, `lang="he"` ו־`dir="rtl"`

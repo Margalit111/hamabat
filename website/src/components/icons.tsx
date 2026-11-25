@@ -1,4 +1,3 @@
-import { LOGO_SYMBOL_PATHS } from "@/lib/logo-paths";
 import type { FeatureIcon } from "@/lib/types";
 
 const stroke = {
@@ -82,25 +81,10 @@ export function Breath() {
   );
 }
 
-/** Hidden SVG sprite with the institute logo; referenced with <use href="#mabat-logo">. */
-export function LogoSprite() {
-  return (
-    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
-      <defs>
-        <symbol id="mabat-logo" viewBox="0 0 675 320">
-          {LOGO_SYMBOL_PATHS.map((p) => (
-            <path key={p.cls} className={p.cls} fillRule="evenodd" d={p.d} />
-          ))}
-        </symbol>
-      </defs>
-    </svg>
-  );
-}
-
 export function InstituteLogo({ className, label }: { className?: string; label: string }) {
   return (
     <svg className={className} viewBox="0 0 675 320" role="img" aria-label={label}>
-      <use href="#mabat-logo" width="675" height="320" />
+      <use href="/logo-mabat.svg#mabat-logo" width="675" height="320" />
     </svg>
   );
 }

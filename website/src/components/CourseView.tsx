@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getContact } from "@/lib/content";
 import { telHref, waHref } from "@/lib/format";
+import { LOGO_WIDTHS, POSTER_WIDTHS, webpSet } from "@/lib/images";
 import type { Course } from "@/lib/types";
 import { Arrow, FeatureGlyph } from "./icons";
 
@@ -12,18 +13,25 @@ const GROUP_BACK = {
 const SOON = "יעודכן בקרוב";
 const vars = (o: Record<string, string>) => o as React.CSSProperties;
 
-function Poster({ ad, className }: { ad: NonNullable<NonNullable<Course["page"]>["ad"]>; className?: string }) {
+function Poster({ ad }: { ad: NonNullable<NonNullable<Course["page"]>["ad"]> }) {
+  const img = webpSet(ad.image, POSTER_WIDTHS);
   return (
     <>
       <a className="adlink" href={`/${ad.image}`} target="_blank" rel="noopener" aria-label="הגדלת הפרסומת">
+        {/* The poster is the main content above the fold: load it right away (it is the LCP element)
+            and reserve its exact box up front (aspect ratio) so nothing jumps when it arrives. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className={`adimg${className ? ` ${className}` : ""}`}
-          src={`/${ad.image}`}
+          className="adimg"
+          src={img.src}
+          srcSet={img.srcSet}
+          sizes="(max-width: 1000px) 92vw, 520px"
           alt={ad.alt ?? ""}
           width={ad.width}
           height={ad.height}
-          loading="lazy"
+          style={ad.width && ad.height ? vars({ "--ar": `${ad.width} / ${ad.height}` }) : undefined}
+          fetchPriority="high"
+          decoding="async"
         />
       </a>
       <small className="adcap">לחצי על הפרסומת להגדלה</small>
@@ -57,7 +65,10 @@ export default function CourseView({ course: c }: { course: Course }) {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       className="brandimg"
-                      src={`/${p.brand.logo}`}
+                      src={webpSet(p.brand.logo, LOGO_WIDTHS).src}
+                      srcSet={webpSet(p.brand.logo, LOGO_WIDTHS).srcSet}
+                      sizes="300px"
+                      fetchPriority="high"
                       alt={`לוגו ${p.brand.name}`}
                       width={p.brand.width}
                       height={p.brand.height}
@@ -89,7 +100,7 @@ export default function CourseView({ course: c }: { course: Course }) {
               </div>
             </div>
             {hasAd ? (
-              <div className="c-poster rv">
+              <div className="c-poster">
                 <Poster ad={p.ad!} />
               </div>
             ) : (
