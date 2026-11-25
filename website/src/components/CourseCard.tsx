@@ -13,7 +13,7 @@ export default function CourseCard({ course: c, index }: { course: Course; index
         </div>
         <div className="body">
           <span className="tag">{c.tag}</span>
-          <h3>{c.title}</h3>
+          <h2>{c.title}</h2>
           <p>{c.summary}</p>
           <span className="go">
             לאתר <Arrow />
@@ -36,7 +36,7 @@ export default function CourseCard({ course: c, index }: { course: Course; index
           </>
         )}
         <span className={`tag ${breath ? "t2" : "t1"}`}>{c.tag || "קורס"}</span>
-        <h3>{c.title}</h3>
+        <h2>{c.title}</h2>
         <p>{c.summary}</p>
         <span className="go">
           לדף הקורס <Arrow />

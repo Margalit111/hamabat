@@ -3,6 +3,7 @@ import { waHref } from "@/lib/format";
 
 export default function WhatsAppFloat() {
   return (
+    <aside aria-label="שיחה בוואטסאפ">
     <a
       className="wa"
       href={waHref(getContact().whatsapp)}
@@ -19,5 +20,6 @@ export default function WhatsAppFloat() {
         />
       </svg>
     </a>
+    </aside>
   );
 }

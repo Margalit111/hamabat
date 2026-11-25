@@ -19,9 +19,10 @@ hamabat/
 cd website
 npm install
 npm run dev          # פיתוח: http://localhost:3000
-npm run validate     # בדיקת תקינות של content/site.json
+npm run validate     # בדיקת תקינות של content/site.json (רצה גם אוטומטית לפני כל build)
 npm run build        # בנייה: האתר המוכן נוצר בתיקייה website/out
 npm run images       # יצירת גרסאות WebP לתמונות (ראו "תמונות וגופנים")
+npm run og           # יצירה מחדש של תמונת השיתוף public/og-home.jpg
 ```
 
 ## עריכת תוכן
@@ -29,6 +30,8 @@ npm run images       # יצירת גרסאות WebP לתמונות (ראו "תמ
 כל מה שמשתנה נמצא ב־`website/content/site.json`. אפשר לערוך אותו ישר באתר של GitHub
 (פותחים את הקובץ ← סמל העיפרון ← **Commit changes**), והאתר מתעדכן אוטומטית תוך כמה דקות.
 תמונות ופוסטרים נמצאים ב־`website/public/assets/uploads/`.
+
+**בדיקה אוטומטית:** לפני כל בנייה רצה בדיקת תקינות (`website/scripts/validate-content.mjs`). אם יש טעות (JSON שבור, תאריך לא חוקי, מזהה כפול, תמונה חסרה או שלא הורצה עבורה `npm run images`), הבנייה נעצרת עם הסבר בעברית, והאתר החי נשאר כמו שהיה. בלשונית Deployments ב־Cloudflare רואים את ההסבר ביומן הבנייה.
 
 ### קורסים (`courses`)
 
@@ -96,9 +99,13 @@ npm run images       # יצירת גרסאות WebP לתמונות (ראו "תמ
 * HTML מלא לכל עמוד, כתובת אמיתית לכל קורס, `lang="he"` ו־`dir="rtl"`
 * `<title>`, description, canonical ו־Open Graph לכל עמוד (`generateMetadata`)
 * נתונים מובנים: `Organization` (בית), `Course` + `BreadcrumbList` (עמודי קורס), ו־`CourseInstance` עם תאריך התחלה כשמוגדר `startDate`
-* `sitemap.xml` ו־`robots.txt` נוצרים אוטומטית; favicon
+* `sitemap.xml` ו־`robots.txt` נוצרים אוטומטית; favicon; תמונת שיתוף כללית (`public/og-home.jpg`) לעמודים שאין להם תמונה משלהם (בעמודי קורס משתמשים בפוסטר)
 * h1 אחד בכל עמוד, תמונות עם `alt` ומידות (למניעת קפיצות פריסה)
 * Lighthouse (נייד, סימולציה): נגישות, פרקטיקות ו־SEO = 100
+
+## נגישות
+
+נבדק עם axe-core (ללא הפרות), בדיקת ניגודיות בפועל על כל הטקסטים, ניווט מקלדת (קישור "דילוג לתוכן", סדר פוקוס הגיוני, מסגרת פוקוס גלויה), הגדלה ל־200%, תצוגה ברוחב 320px (אין גלילה אופקית), וגודל מטרות מגע (מינימום 24px). כפתורי הפעולה הראשיים וה־tags כהו מעט כדי לעמוד ב־AA. הצהרת הנגישות נמצאת ב־`/accessibility/`.
 
 ## קבצים עיקריים
 
