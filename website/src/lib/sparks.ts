@@ -66,6 +66,9 @@ export function initSparks(
 
   let lx = 0, ly = 0, lw = 1, lh = 1, K = 1, W = 0, H = 0, dpr = 1;
   let cx = 0, cy = 0, T0 = 0, raf = 0, w0 = 0;
+  let bx = 0, by = 0, bw = 1, bh = 1; // logo region in device pixels (composite only this)
+  let lastFrame = 0;
+  let slowFrames = 0;
   let P: Spark[] = [];
   let logoC: HTMLCanvasElement;
   let revC: HTMLCanvasElement;
@@ -113,7 +116,7 @@ export function initSparks(
     H = Math.max(1, Math.floor(hr.height));
     dpr = Math.max(
       1,
-      Math.min(2, window.devicePixelRatio || 1, Math.sqrt(3.6e6 / (W * H))),
+      Math.min(1.5, window.devicePixelRatio || 1, Math.sqrt(2.4e6 / (W * H))),
     );
     cv.width = W * dpr;
     cv.height = H * dpr;
@@ -126,6 +129,10 @@ export function initSparks(
     K = lw / VB.width;
     cx = lx + lw / 2;
     cy = ly + lh / 2;
+    bx = Math.max(0, Math.floor((lx - 6) * dpr));
+    by = Math.max(0, Math.floor((ly - 6) * dpr));
+    bw = Math.min(Math.ceil(W * dpr) - bx, Math.ceil((lw + 12) * dpr));
+    bh = Math.min(Math.ceil(H * dpr) - by, Math.ceil((lh + 12) * dpr));
 
     const o = document.createElement("canvas");
     o.width = W;
@@ -138,7 +145,7 @@ export function initSparks(
     const y1 = Math.min(H, Math.ceil(ly + lh + 3));
     const d = c.getImageData(x0, y0, Math.max(1, x1 - x0), Math.max(1, y1 - y0));
     const iw = d.width;
-    const step = Math.max(2, Math.round(lh / 130));
+    const step = Math.max(2, Math.round(lh / 110));
     const pts: [number, number][] = [];
     for (let y = 0; y < d.height; y += step)
       for (let x = 0; x < iw; x += step)
@@ -178,7 +185,16 @@ export function initSparks(
   }
 
   function tick() {
-    const T = (performance.now() - T0) / 1000;
+    const now = performance.now();
+    const T = (now - T0) / 1000;
+    // Slow device (many long frames): skip straight to the finished logo instead of janking.
+    // (ignore the first moments: hydration causes a few slow frames on every device)
+    if (lastFrame && T > 0.8 && now - lastFrame > 70) slowFrames++;
+    lastFrame = now;
+    if (slowFrames >= 12) {
+      finish();
+      return;
+    }
     ctx!.clearRect(0, 0, W, H);
     const rev = new Path2D();
     const dots = COL.map(() => new Path2D());
@@ -204,20 +220,21 @@ export function initSparks(
       }
     }
     if (landed) {
-      // fill the landed area with the real, smooth logo (true edges, true gradient)
+      // fill the landed area with the real, smooth logo (true edges, true gradient);
+      // only the logo region is cleared/composited, not the whole hero
       rc.save();
       rc.setTransform(1, 0, 0, 1, 0, 0);
       rc.globalCompositeOperation = "source-over";
-      rc.clearRect(0, 0, revC.width, revC.height);
+      rc.clearRect(bx, by, bw, bh);
       rc.restore();
       rc.fillStyle = "#000";
       rc.fill(rev);
       rc.save();
       rc.setTransform(1, 0, 0, 1, 0, 0);
       rc.globalCompositeOperation = "source-in";
-      rc.drawImage(logoC, 0, 0);
+      rc.drawImage(logoC, bx, by, bw, bh, bx, by, bw, bh);
       rc.restore();
-      ctx!.drawImage(revC, 0, 0, W, H);
+      ctx!.drawImage(revC, bx, by, bw, bh, bx / dpr, by / dpr, bw / dpr, bh / dpr);
     }
     ctx!.globalAlpha = Math.min(1, T / 0.15);
     for (let i = 0; i < NB; i++) {

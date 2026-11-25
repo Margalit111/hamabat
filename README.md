@@ -43,7 +43,8 @@ npm run build        # בנייה: האתר המוכן נוצר בתיקייה w
 
 * **תמונות:** מניחים את התמונה המקורית (JPG/PNG) ב־`website/public/assets/uploads/`, מפנים אליה מ־`site.json`, ואז מריצים `npm run images` (בתוך `website`).
   הסקריפט יוצר לצידה גרסאות WebP קלות (`-600.webp`, `-1000.webp`), והאתר מגיש אותן אוטומטית. המקור נשאר לתצוגות שיתוף ולכפתור "הגדלה".
-* **גופנים:** Rubik ו־Assistant מאוחסנים עצמית (חבילות `@fontsource-variable`), בלי בקשות לשרתי Google.
+* **גופנים:** Rubik ו־Assistant מאוחסנים עצמית בתיקייה `website/public/fonts/` (רק עברית ולטינית, ברישיון OFL), עם טעינה מוקדמת, בלי בקשות לשרתי Google.
+* **כותרות מטמון ואבטחה:** `website/public/_headers` (נקרא על ידי Cloudflare Pages ו־Netlify).
 * **לוגו המכון:** קובץ `public/logo-mabat.svg` (נשמר במטמון, לא מוטמע בכל עמוד).
 
 ## מה כבר מכוסה ב־SEO

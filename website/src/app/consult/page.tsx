@@ -37,7 +37,7 @@ export default function ConsultPage() {
 
         <div className="page" id="consult-a">
           <div className="wrap">
-            <div className="head rv">
+            <div className="head rv in">
               <div className="eyebrow">ייעוץ עם צוות מומחיות</div>
               <h1>
                 יש לך שאלה או התלבטות? ייעוץ <span className="free">ללא עלות</span>
@@ -47,7 +47,7 @@ export default function ConsultPage() {
               </p>
             </div>
             <h2 className="route-label">מסלול א׳</h2>
-            <div className="route rv">
+            <div className="route rv in">
               <div className="route-top">
                 <div>
                   <h3>ייעוץ דיגיטלי ללא עלות</h3>

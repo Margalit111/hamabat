@@ -21,13 +21,13 @@ export default function LegalPage({
             <Link className="crumb" href="/">
               <Arrow /> לדף הבית
             </Link>
-            <div className="head rv">
+            <div className="head rv in">
               <div className="eyebrow">מידע לגולשים</div>
               <h1>
                 {title} <span className="hl">{highlight}</span>
               </h1>
             </div>
-            <article className="legal rv">{children}</article>
+            <article className="legal rv in">{children}</article>
           </div>
         </div>
       </section>

@@ -1,6 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/rubik/wght.css";
-import "@fontsource-variable/assistant/wght.css";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -44,6 +42,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className="v-spark" suppressHydrationWarning>
       <head>
+        {/* start downloading the Hebrew fonts right away (they decide when the headline shows) */}
+        <link rel="preload" href="/fonts/rubik-hebrew-wght-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/assistant-hebrew-wght-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>

@@ -8,7 +8,7 @@ export default function NotFound() {
       <section className="sec">
         <div className="page">
           <div className="wrap" style={{ textAlign: "center" }}>
-            <div className="head rv" style={{ marginInline: "auto" }}>
+            <div className="head rv in" style={{ marginInline: "auto" }}>
               <div className="eyebrow">404</div>
               <h1>העמוד שחיפשת <span className="hl">לא נמצא</span></h1>
               <p>ייתכן שהקורס הסתיים או שהכתובת השתנתה.</p>

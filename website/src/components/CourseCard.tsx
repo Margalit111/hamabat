@@ -7,7 +7,7 @@ export default function CourseCard({ course: c, index }: { course: Course; index
 
   if (c.externalUrl) {
     return (
-      <a className="card inst rv" href={c.externalUrl} target="_blank" rel="noopener" style={delay}>
+      <a className="card inst rv in" href={c.externalUrl} target="_blank" rel="noopener" style={delay}>
         <div className="art">
           <InstituteLogo label="לוגו מכון המבט – הסתכלות מעמיקה בבריאות טובה" />
         </div>
@@ -25,7 +25,7 @@ export default function CourseCard({ course: c, index }: { course: Course; index
 
   const breath = c.art === "breath";
   return (
-    <Link className="card rv" href={`/courses/${c.id}/`} style={delay}>
+    <Link className="card rv in" href={`/courses/${c.id}/`} style={delay}>
       <div className={`art ${breath ? "peach" : "teal"}`}>{breath ? <Breath /> : <Rise />}</div>
       <div className="body">
         {c.status === "closed" && (

@@ -27,7 +27,7 @@ export default function CourseGroupPage({
             <Link className="crumb" href="/">
               <Arrow /> לדף הבית
             </Link>
-            <div className="head rv">
+            <div className="head rv in">
               <div className="eyebrow">{eyebrow}</div>
               <h1>
                 {title} <span className="hl">{highlight}</span>
