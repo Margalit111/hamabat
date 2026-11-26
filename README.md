@@ -8,8 +8,7 @@ hamabat/
 ├── website/        האתר הציבורי (Next.js, ייצוא סטטי)                ← מוכן ומפורסם
 ├── wrangler.jsonc  הגדרת הפריסה ל-Cloudflare (מגיש את website/out)
 ├── .github/        בנייה לילית אוטומטית (GitHub Actions)
-├── admin/          ממשק ניהול (React)                                 ← עוד לא נבנה, ראו admin/README.md
-├── api/            שרת + מסד נתונים לממשק הניהול                      ← עוד לא נבנה, ראו api/README.md
+├── admin/          מערכת ניהול: ממשק React + API ב־Worker                ← נבנתה, ראו admin/README.md
 └── docs/           תוכנית המשך ומה שנשאר לעשות
 ```
 

@@ -1,0 +1,23 @@
+{
+  // Admin panel for the Mabat site: a Worker (the /api/* routes) + the React app (static assets).
+  // Secrets (set in the Cloudflare dashboard, never in this file): ADMIN_PASSWORD, GITHUB_TOKEN, SESSION_SECRET
+  "name": "hamabat-admin",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "GITHUB_REPO": "Margalit111/hamabat",
+    "MAIN_BRANCH": "main",
+    "DRAFT_BRANCH": "draft",
+    "CONTENT_PATH": "website/content/site.json",
+    "UPLOAD_DIR": "website/public/assets/uploads",
+    // Address of the live site and of the preview build of the draft branch (shown as links in the panel)
+    "SITE_URL": "https://hamabat.mm0527165565.workers.dev",
+    "PREVIEW_URL": ""
+  }
+}

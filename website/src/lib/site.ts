@@ -19,3 +19,6 @@ export const NAV = [
 
 export const absoluteUrl = (p: string) =>
   `${SITE_URL}${p.startsWith("/") ? p : `/${p}`}`;
+
+/** Cloudflare sets WORKERS_CI_BRANCH during builds. Any build that is not `main` is a preview (e.g. the admin's draft). */
+export const IS_PREVIEW = !!process.env.WORKERS_CI_BRANCH && process.env.WORKERS_CI_BRANCH !== "main";

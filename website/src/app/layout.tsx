@@ -7,7 +7,7 @@ import SiteEffects from "@/components/SiteEffects";
 import Toaster from "@/components/Toaster";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { getCoursesWithPage } from "@/lib/content";
-import { SITE_DESCRIPTION, SITE_FULL_NAME, SITE_NAME, SITE_URL } from "@/lib/site";
+import { IS_PREVIEW, SITE_DESCRIPTION, SITE_FULL_NAME, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     images: [{ url: "/og-home.jpg", width: 1200, height: 630, alt: SITE_FULL_NAME }],
   },
   twitter: { card: "summary_large_image", images: ["/og-home.jpg"] },
-  robots: { index: true, follow: true },
+  robots: IS_PREVIEW ? { index: false, follow: false } : { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
