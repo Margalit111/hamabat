@@ -70,6 +70,14 @@ Settings ← Build ← **Build watch paths**:
 * כותרות CSP, `X-Frame-Options: DENY` ו־`noindex` על כל הממשק.
 * כל שמירה היא commit על שם "מערכת הניהול של מבט", כך שיש יומן פעולות מלא ב־GitHub.
 
+## להריץ מקומית ולנסות (בלי לגעת ב־GitHub)
+```bash
+cd admin
+npm install
+npm run dev:local     # http://localhost:8787  סיסמה: demo
+```
+הפקודה מפעילה את הממשק האמיתי מול GitHub מדומה שחי בזיכרון: שום דבר שנעשה שם לא משפיע על הריפו או על האתר, ונעלם בסגירה (Ctrl+C).
+
 ## פיתוח ובדיקות
 ```bash
 cd admin
